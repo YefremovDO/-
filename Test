@@ -1,0 +1,90 @@
+#include <iostream>
+#include <stack>
+using namespace std;
+
+#define STOP '*'
+typedef struct Node* Point;
+struct Node {
+    char info;
+    Point link;
+};
+void Push(Point* top, char);
+void MakeStack(Point* top);
+void ReadStack(Point* top);
+
+void ReadTop(Point* top, char* c)
+{
+    *c = (*top)->info;
+    *top = (*top)->link;
+}
+//---- Look_Stack -------------
+void ReadStack(Point* top)
+{
+    char c;
+    c = 1;
+    cout << "blok funk read\n";
+    //while (c != NULL)
+    while (c != NULL)
+    {
+        ReadTop(top, &c);
+        cout << c << endl;
+    }
+}
+
+void Push(Point* top, char c)
+{
+    Point new_top;
+    new_top = new (Node);
+    new_top->info = c;
+    new_top->link = *top;
+    *top = new_top;
+}
+// ---- Make_Stack -----------
+void MakeStack(Point* top)
+{
+    char c;
+    cout << "Please input symbols:\n";
+    do
+    {
+        cin >> c;
+        if (c != STOP)
+        {
+            Push(top, c);
+        }
+    } while (c != STOP);
+}
+
+void Wrmass(Point* top)
+{
+    char c;
+    char* s = new char[100];
+    int a = 0;
+    c = 5;
+    cout << "Stack: " << endl;
+
+    for (int i = 0; i < 5; i++)
+    {
+        ReadTop(top, &c);
+        cout << "c= " << c << endl;
+        s[i] = c;
+        a++;
+    }
+    cout << "\nArray:" << endl;
+    for (int i = 0; i < a; i++)
+    {
+        cout << "s["<<i<<"] = "<< s[i] << endl;
+    }
+}
+int main()
+{
+    const int n = 100;
+    char* s = new char[n];
+    
+    Point top;
+    top = NULL;
+    MakeStack(&top);
+    Wrmass(&top);
+
+    delete[] s; 
+    return 0;
+}
